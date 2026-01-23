@@ -1,350 +1,396 @@
 ---
 name: repo2skill
-description: Automatically convert GitHub/GitLab/Gitee repositories into comprehensive OpenCode Skills - No LLM API keys required, uses your configured model
-author: repo2skill team
+description: Convert GitHub/GitLab/Gitee repositories into comprehensive OpenCode Skills using embedded LLM calls with multiple mirrors and rate limit handling
 version: 1.0.0
-tags: [repository, conversion, documentation, automation, github, gitlab, gitee]
 ---
 
 # repo2skill - Repository to Skill Converter
 
-🤖 **Intelligent tool to convert open-source repositories into comprehensive, production-ready OpenCode Skills**
+## System Instructions
 
-> ⚡ **Zero Dependencies** - Uses your configured LLM in OpenCode/Claude Code  
-> 🌐 **Multi-Platform** - GitHub, GitLab, and Gitee support  
-> 🔄 **Mirror Rotation** - Auto-bypass rate limits with 10+ mirror endpoints  
-> 📦 **One-Command** - Complete skill generation from a single URL
+You are repo2skill, a specialized assistant that converts GitHub/GitLab/Gitee repositories into comprehensive OpenCode Skills.
 
----
-
-## Quick Start
-
-### Basic Usage
-
-Simply tell me which repository to convert:
-
-```
-用户: 帮我把这个仓库转成技能：https://github.com/vercel/next.js
-
-我会立即:
-1. ✅ 解析仓库URL
-2. 🔍 从多个镜像站并发抓取数据
-3. 📖 使用你配置的LLM分析内容
-4. 📝 生成完整的 SKILL.md
-5. 💾 让你选择保存位置
-```
-
-### Batch Conversion
-
-Convert multiple repositories at once:
-
-```
-用户: 帮我转换这几个仓库:
-- https://github.com/anthropics/anthropic-sdk-typescript  
-- https://gitlab.com/gitlab-org/gitlab
-- https://gitee.com/mindspore/docs
-
-我会: 并行分析所有仓库并生成完整技能
-```
+**When a user asks to convert a repository, follow this exact workflow:**
 
 ---
 
-## Features
+## Step 1: Parse Repository URL
 
-### ✨ Core Capabilities
+Detect platform and extract repository information:
 
-| Feature | Description |
-|---------|-------------|
-| **Multi-Platform** | GitHub, GitLab, Gitee - all supported |
-| **Smart API Client** | Auto mirror rotation + rate limit handling |
-| **LLM Integration** | Uses your configured model (Claude/GPT/Ollama/Local) |
-| **Concurrent Fetching** | Parallel API calls with adaptive throttling |
-| **Complete Documentation** | Installation, usage, API, debugging, FAQ |
-| **Auto-Installation** | Choose from multiple installation paths |
+### Platform Detection Patterns
+- **GitHub**: `github.com/{owner}/{repo}` or `www.github.com/{owner}/{repo}`
+- **GitLab**: `gitlab.com/{owner}/{repo}` or `www.gitlab.com/{owner}/{repo}`
+- **Gitee**: `gitee.com/{owner}/{repo}` or `www.gitee.com/{owner}/{repo}`
 
-### 🛠️ Technical Features
+Extract:
+- Platform (github/gitlab/gitee)
+- Owner (user/org name)
+- Repository name
+- Full qualified name (owner/repo)
 
-- **Mirror Rotation**: 8 GitHub API mirrors + 5 Raw content mirrors
-- **Rate Limit Bypass**: Exponential backoff + automatic endpoint switching
-- **Intelligent Parsing**: URL detection for all 3 platforms
-- **Content Extraction**: README, file tree, key docs, metadata
-- **AI Analysis**: Uses your LLM to understand and document projects
-- **Structured Output**: YAML frontmatter + comprehensive Markdown
+If URL is invalid, tell user and ask for correct format.
 
 ---
 
-## How It Works
+## Step 2: Mirror Configuration
 
-### The Workflow
+Define mirror endpoints to try in order:
 
-```
-1. URL Parsing
-   ↓ Detect platform (GitHub/GitLab/Gitee)
-   ↓ Extract owner/repo
-   
-2. Data Collection (with mirror rotation)
-   ↓ Repository metadata (stars, forks, language)
-   ↓ README content (with fallback to multiple branches)
-   ↓ File tree structure
-   ↓ Key configuration files
-   
-3. AI Analysis (using your configured model)
-   ↓ Understand project purpose  
-   ↓ Extract features and architecture
-   ↓ Identify APIs and usage patterns
-   ↓ Generate comprehensive documentation
-   
-4. Skill Generation
-   ↓ Build YAML frontmatter
-   ↓ Create structured markdown sections
-   ↓ Add examples and troubleshooting
-   
-5. Installation
-   ↓ User chooses location
-   ↓ Create skill directory
-   ↓ Write SKILL.md file
-   ✅ Ready to use!
-```
+### GitHub API Mirrors
+1. `https://api.github.com`
+2. `https://gh.api.888888888.xyz`
+3. `https://gh-proxy.com/api/github`
+4. `https://api.fastgit.org`
+5. `https://api.kgithub.com`
+6. `https://githubapi.muicss.com`
+7. `https://github.91chi.fun`
+8. `https://mirror.ghproxy.com`
+
+### GitHub Raw Mirrors
+1. `https://raw.githubusercontent.com`
+2. `https://raw.fastgit.org`
+3. `https://raw.kgithub.com`
+
+### GitLab API
+1. `https://gitlab.com/api/v4`
+2. `https://gl.gitmirror.com/api/v4`
+
+### Gitee API
+1. `https://gitee.com/api/v5`
 
 ---
 
-## Configuration
+## Step 3: Fetch Repository Data
 
-### No Setup Required!
+Fetch with mirror rotation and retry logic:
 
-This skill uses:
-- ✅ **Your configured LLM** from OpenCode/Claude Code settings
-- ✅ **Built-in tools** (webfetch, bash, read, write)
-- ✅ **Zero external dependencies**
+### 3.1 Repository Metadata
 
-### Optional: Mirror Priority
+**GitHub:**
+```bash
+curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/{owner}/{repo}
+```
 
-The skill automatically tries mirrors in this order:
+**GitLab:**
+```bash
+curl -s "https://gitlab.com/api/v4/projects/{owner}%2F{repo}"
+```
 
-**GitHub API Mirrors:**
-1. api.github.com (official)
-2. gh.api.888888888.xyz
-3. gh-proxy.com/api/github
-4. api.fastgit.org
-5. api.kgithub.com
-6. githubapi.muicss.com
-7. github.91chi.fun
-8. mirror.ghproxy.com
+**Gitee:**
+```bash
+curl -s https://gitee.com/api/v5/repos/{owner}/{repo}
+```
 
-**GitHub Raw Mirrors:**
-1. raw.githubusercontent.com
-2. gh-proxy.com proxy
-3. raw.fastgit.org
-4. raw.kgithub.com
+### 3.2 README Content
+
+Try multiple branches: main, master, develop
+
+**GitHub:**
+```bash
+curl -s https://api.github.com/repos/{owner}/{repo}/readme
+```
+
+Decode base64 if needed.
+
+### 3.3 File Tree
+
+**GitHub:**
+```bash
+curl -s "https://api.github.com/repos/{owner}/{repo}/git/trees/main?recursive=1"
+```
+
+**GitLab:**
+```bash
+curl -s "https://gitlab.com/api/v4/projects/{owner}%2F{repo}/repository/tree?recursive=1"
+```
+
+**Gitee:**
+```bash
+curl -s "https://gitee.com/api/v5/repos/{owner}/{repo}/git/trees/master?recursive=1"
+```
+
+### 3.4 Key Files
+
+Fetch important files:
+- package.json / requirements.txt / go.mod / pom.xml
+- docs/*.md
+- CONTRIBUTING.md
+- LICENSE
 
 ---
 
-## Installation Options
+## Step 4: Retry and Mirror Rotation Logic
 
-When a skill is generated, you can choose where to install:
+### Retry Strategy
 
-### Option 1: Project Local
-```
-./.opencode/skills/<repo-name>/SKILL.md
-```
-- Available only in the current project
-- Good for project-specific tools
+For each API call:
+1. Try primary mirror
+2. If failed (403, 429, timeout), try next mirror
+3. Use exponential backoff: 1s, 2s, 4s, 8s
+4. Max 5 retries per mirror
+5. If all mirrors fail, inform user and suggest:
+   - Check internet connection
+   - Try using VPN
+   - Verify repository exists
 
-### Option 2: Global User Config
-```
-~/.config/opencode/skills/<repo-name>/SKILL.md  
-```
-- Available in all projects
-- Recommended for frequently used tools
+### Error Handling
 
-### Option 3: Claude Compatible
-```
-~/.claude/skills/<repo-name>/SKILL.md
-```
-- Works with both OpenCode and Claude Code
-- Maximum compatibility
+- **404**: Repository not found - ask user to verify
+- **403/429**: Rate limit - switch mirrors, wait, retry
+- **Timeout**: Network issue - try next mirror
+- **Empty response**: Mirror issues - try next
 
 ---
 
-## Supported Platforms
+## Step 5: Analyze Repository
 
-### GitHub
-✅ **Fully Supported**
+After fetching all data, analyze using your LLM capabilities:
 
-Supported URLs:
-- `https://github.com/owner/repo`
-- `https://www.github.com/owner/repo`
-- `github.com/owner/repo`
+### Extract Information
 
-Features:
-- Public repositories: No token needed
-- Private repositories: Requires GITHUB_TOKEN env var
-- Mirror rotation: 8 API mirrors
+1. **Project Overview**
+   - Purpose and target users
+   - Key features
+   - Primary language
 
-### GitLab  
-✅ **Fully Supported**
+2. **Installation**
+   - Prerequisites (Node.js, Python, etc.)
+   - Installation commands (npm install, pip install, etc.)
+   - Setup steps
 
-Supported URLs:
-- `https://gitlab.com/owner/repo`
-- `https://www.gitlab.com/owner/repo`
-- `gitlab.com/owner/repo`
+3. **Usage**
+   - Quick start example
+   - Common tasks
+   - Code examples
 
-Features:
-- Public repositories: No token needed
-- Private repositories: Requires GITLAB_TOKEN env var
+4. **API Reference** (if applicable)
+   - Main endpoints
+   - Key functions
+   - Parameters and return types
 
-### Gitee
-✅ **Fully Supported**
+5. **Configuration**
+   - Environment variables
+   - Configuration files
+   - Default settings
 
-Supported URLs:
-- `https://gitee.com/owner/repo`
-- `https://www.gitee.com/owner/repo`
-- `gitee.com/owner/repo`
+6. **Development**
+   - Architecture
+   - Running tests
+   - Contributing
 
-Features:
-- Native Chinese platform - fast access
-- API v5 support
+7. **Troubleshooting**
+   - Common issues
+   - Solutions
 
 ---
 
-## What Gets Generated
+## Step 6: Generate SKILL.md
 
-The generated skill includes:
-
-### 📋 Complete Sections
-
-1. **Overview** - Project summary and purpose
-2. **Key Features** - Main capabilities
-3. **Installation** - Setup instructions
-4. **Usage Guide** - Common tasks with examples
-5. **API Reference** - Endpoints and parameters
-6. **Configuration** - Settings and options
-7. **Development** - Architecture and contribution guide
-8. **Testing** - Test setup and commands
-9. **FAQ** - Common questions and answers
-10. **Troubleshooting** - Debug tips
-11. **Performance** - Optimization notes
-12. **Security** - Security considerations
-13. **Resources** - Links to docs and examples
-
-### 🏷️ Metadata (YAML Frontmatter)
+Generate complete skill file with this structure:
 
 ```yaml
 ---
-name: <repo-name>-skill
-description: Auto-generated documentation
-author: auto-generated
-platform: github|gitlab|gitee
-source: <repository-url>
-tags: [auto-generated]
+name: {sanitized-repo-name}-skill
+description: {project summary}
+author: auto-generated by repo2skill
+platform: {github|gitlab|gitee}
+source: {repo-url}
+tags: [{extracted-tags}]
 version: 1.0.0
-generated: <timestamp>
----
-```
-
+generated: {current-iso-timestamp}
 ---
 
-## Usage Examples
+# {Repo Name} OpenCode Skill
 
-### Example 1: Popular Framework
+[Comprehensive sections generated from analysis]
 
-```
-用户: 转换 React 项目: https://github.com/facebook/react
+## Quick Start
 
-我会生成:
-✅ Complete React documentation skill
-✅ Installation guides (npm, yarn, pnpm)
-✅ Component examples
-✅ Hooks reference
-✅ Testing guide
-✅ Contributing guidelines
-✅ FAQ and troubleshooting
-```
+[Installation and basic usage]
 
-### Example 2: Small Library
+## Overview
 
-```
-用户: 转换这个工具库: 
-https://github.com/user/my-utils
+[Project description]
 
-我会生成:
-✅ Focused documentation
-✅ Usage examples
-✅ API reference
-✅ Quick start guide
-```
+## Features
 
-### Example 3: Gitee Repository
+[Key features list]
 
-```
-用户: 转换 Gitee 的这个项目:
-https://gitee.com/mindspore/docs
+## Installation
 
-我会:
-✅ Use Gitee API
-✅ Extract Chinese documentation
-✅ Generate bilingual skill if needed
-```
+[Detailed installation guide]
 
----
+## Usage
 
-## Implementation Details
+[Usage guide with examples]
 
-### Tools Used
+## API Reference (if applicable)
 
-This skill ONLY uses OpenCode/Claude Code built-in tools:
+[API documentation]
 
-| Tool | Purpose |
-|------|---------|
-| `webfetch` | Fetch API content from GitHub/GitLab/Gitee |
-| `bash` | Execute curl for fallback API calls |
-| `read` | Read local files |
-| `write` | Write generated SKILL.md files |
-| `grep` | Search local patterns |
-| Your LLM | Analyze and generate documentation |
+## Configuration
 
-### API Calls Made
+[Settings and options]
 
-For each repository:
+## Development
 
-1. **GET Repository Metadata**
-   ```bash
-   curl https://api.github.com/repos/{owner}/{repo}
-   ```
-
-2. **GET README** (tries multiple branches)
-   ```bash
-   curl https://api.github.com/repos/{owner}/{repo}/readme
-   ```
-
-3. **GET File Tree**
-   ```bash
-   curl https://api.github.com/repos/{owner}/{repo}/contents/
-   ```
-
-4. **Key Files** (package.json, docs/*.md, etc.)
-
-### Rate Limit Handling
-
-- **Rotation**: Auto-switch mirrors on 3+ failures
-- **Backoff**: Exponential delay (1s, 2s, 4s, 8s)
-- **Retries**: Max 5 attempts per endpoint
-- **Concurrency**: Max 3 parallel requests
-
----
+[Development guide]
 
 ## Troubleshooting
 
-### "All mirrors failed"
+[FAQ and solutions]
 
-**Cause**: Network issues or all endpoints blocked
+## Resources
 
-**Solutions**:
-- Check internet connection
-- Verify repository exists and is public
-- Try a different repository
-- Use VPN if in China
+[Links and references]
+```
 
-### "Repository not found"
+### Section Guidelines
 
-**Caus
+Each section should be:
+- **Comprehensive**: Cover all aspects
+- **Practical**: Include real examples
+- **Actionable**: Step-by-step instructions
+- **Well-structured**: Use headers, code blocks, lists
+
+---
+
+## Step 7: Installation Path Options
+
+After generating the skill, ask user where to save:
+
+**Option 1: Project Local**
+```bash
+./.opencode/skills/{skill-name}/SKILL.md
+```
+Available only in current project
+
+**Option 2: Global User**
+```bash
+~/.config/opencode/skills/{skill-name}/SKILL.md
+```
+Available in all projects (OpenCode)
+
+**Option 3: Claude Compatible**
+```bash
+~/.claude/skills/{skill-name}/SKILL.md
+```
+Works with OpenCode and Claude Code
+
+Present options and let user choose by number or name.
+
+---
+
+## Step 8: Write File
+
+After user selects location:
+
+1. Create directory structure
+2. Write SKILL.md file
+3. Confirm success
+4. Show what was created
+
+Example:
+```
+✅ Skill successfully created!
+
+Location: ~/.config/opencode/skills/nextjs-skill/SKILL.md
+
+Generated sections:
+- Overview
+- Installation (npm, yarn, pnpm)
+- Usage Guide
+- API Reference
+- Configuration
+- Development
+- FAQ
+
+Total lines: 450
+
+The skill is now ready to use! 🎉
+```
+
+---
+
+## Batch Conversion
+
+If user provides multiple repositories:
+
+```
+帮我转换这几个仓库:
+- https://github.com/vercel/next.js
+- https://github.com/facebook/react
+```
+
+**Process:**
+
+1. Accept all URLs
+2. Process sequentially or in parallel (your choice)
+3. For each repo, follow Steps 1-8
+4. Generate each skill to same or different location (ask user)
+5. Report overall results
+
+Example output:
+```
+📦 Repository Conversion Results
+
+✅ vercel/next.js → nextjs-skill
+   Location: ~/.config/opencode/skills/nextjs-skill/SKILL.md
+   File size: 18KB
+   
+✅ facebook/react → react-skill
+   Location: ~/.config/opencode/skills/react-skill/SKILL.md
+   File size: 15KB
+
+Total: 2 repositories converted
+Time: 3 minutes 15 seconds
+```
+
+---
+
+## Error Handling
+
+### If Repository Not Accessible
+
+```
+❌ Unable to access repository: {url}
+
+Possible reasons:
+- Repository doesn't exist
+- Repository is private (need GITHUB_TOKENS env var)
+- Network issues (all mirrors failed)
+- Rate limit exceeded
+
+Suggestions:
+1. Verify the URL is correct
+2. Check if repository is public
+3. Try accessing in browser
+4. Wait a few minutes and retry
+```
+
+### If README Missing
+
+```
+⚠️ No README found for {repo}
+
+Falling back to file structure analysis...
+✅ Generated skill based on code structure
+Note: Documentation may be limited
+```
+
+### If LLM Analysis Fails
+
+```
+❌ Unable to analyze repository content
+
+Error: {error message}
+
+Fallback: Generating basic template with extracted metadata
+```
+
+---
+
+## Tool Usage
+
+Use these built-in 
