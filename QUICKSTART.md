@@ -7,11 +7,11 @@
 ```bash
 # 复制到全局目录(推荐)
 mkdir -p ~/.config/opencode/skills
-cp -r .opencode/skills/repo2skill ~/.config/opencode/skills/
+cp -r repo2skill ~/.config/opencode/skills/
 
 # 或者复制到 Claude 兼容目录
 mkdir -p ~/.claude/skills
-cp -r .opencode/skills/repo2skill ~/.claude/skills/
+cp -r repo2skill ~/.claude/skills/
 ```
 
 ### 步骤2: 重启 OpenCode/Claude Code

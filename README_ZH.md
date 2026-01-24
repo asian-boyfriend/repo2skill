@@ -39,15 +39,15 @@
 ```bash
 # 选项 1: 全局(推荐用于所有项目)
 mkdir -p ~/.config/opencode/skills
-cp -r .opencode/skills/repo2skill ~/.config/opencode/skills/
+cp -r repo2skill ~/.config/opencode/skills/
 
 # 选项 2: Claude 兼容
 mkdir -p ~/.claude/skills
-cp -r .opencode/skills/repo2skill ~/.claude/skills/
+cp -r repo2skill ~/.claude/skills/
 
 # 选项 3: 项目特定
 mkdir -p your-project/.opencode/skills
-cp -r .opencode/skills/repo2skill your-project/.opencode/skills/
+cp -r repo2skill your-project/.opencode/skills/
 ```
 
 就这么简单!无需 npm install,无需 API keys。🎉
@@ -248,25 +248,22 @@ cp -r .opencode/skills/repo2skill your-project/.opencode/skills/
 
 ```
 repo2skill/
-├── .opencode/
-│   └── skills/
-│       └── repo2skill/              # 🎯 主 Skill 目录
-│           ├── SKILL.md              # 核心系统指令(350 行)
-│           ├── references/           # API 参考文档
-│           │   ├── github-api.md     # GitHub API 速查表
-│           │   ├── gitlab-api.md     # GitLab API 速查表
-│           │   └── gitee-api.md      # Gitee API 速查表
-│           └── scripts/              # 工具脚本
-│               └── utils.sh          # Bash 辅助函数
-├── README.md                         # 本文件
-├── README_EN.md                      # 英文版本
-├── README_ZH.md                      # 中文版本
+├── repo2skill/                       # 🎯 主 Skill 目录(复制这个目录使用)
+│   ├── SKILL.md                      # 核心系统指令(397 行)
+│   ├── IMPLEMENTATION.md             # 技术文档(165 行)
+│   ├── references/                   # API 参考文档
+│   │   ├── github-api.md             # GitHub API 速查表(123 行)
+│   │   ├── gitlab-api.md             # GitLab API 速查表(114 行)
+│   │   └── gitee-api.md              # Gitee API 速查表(31 行)
+│   └── scripts/                      # 工具脚本
+│       └── utils.sh                  # Bash 辅助函数(95 行)
+├── README.md                         # 英文主文档
+├── README_EN.md                      # 英文简版
+├── README_ZH.md                      # 本文件
 ├── INSTALL.md                        # 安装指南
 ├── QUICKSTART.md                     # 5 分钟快速开始
 ├── EXAMPLES.md                       # 10 个真实示例
 ├── IMPLEMENTATION.md                 # 技术实现细节
-└── output/
-    └── example-output.md            # 示例生成的技能
 ```
 
 ---

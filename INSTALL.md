@@ -7,11 +7,11 @@
 ```bash
 # Copy to global OpenCode skills directory
 mkdir -p ~/.config/opencode/skills
-cp -r .opencode/skills/repo2skill ~/.config/opencode/skills/
+cp -r repo2skill ~/.config/opencode/skills/
 
 # Or for Claude Code compatibility
 mkdir -p ~/.claude/skills
-cp -r .opencode/skills/repo2skill ~/.claude/skills/
+cp -r repo2skill ~/.claude/skills/
 ```
 
 ### Option 2: Project-specific Installation
@@ -19,17 +19,18 @@ cp -r .opencode/skills/repo2skill ~/.claude/skills/
 ```bash
 # Copy to your project
 mkdir -p your-project/.opencode/skills
-cp -r .opencode/skills/repo2skill your-project/.opencode/skills/
+cp -r repo2skill your-project/.opencode/skills/
 ```
 
 ### Option 3: From GitHub (when published)
 
 ```bash
-# Clone the skill (this is the repo itself - no clone needed!)
-# The repo2skill directory IS the skill
+# Clone or download the repository
+git clone https://github.com/yourusername/repo2skill.git
+cd repo2skill
 
-# Just copy it to your skills location
-cp -r . ~/.config/opencode/skills/repo2skill
+# Then use one of the options above to copy the repo2skill directory
+cp -r repo2skill ~/.config/opencode/skills/
 ```
 
 ## Verify Installation

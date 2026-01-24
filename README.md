@@ -39,15 +39,15 @@ Simply copy the skill to your skills directory:
 ```bash
 # Option 1: Global (recommended for all projects)
 mkdir -p ~/.config/opencode/skills
-cp -r .opencode/skills/repo2skill ~/.config/opencode/skills/
+cp -r repo2skill ~/.config/opencode/skills/
 
 # Option 2: Claude-compatible
 mkdir -p ~/.claude/skills
-cp -r .opencode/skills/repo2skill ~/.claude/skills/
+cp -r repo2skill ~/.claude/skills/
 
 # Option 3: Project-specific
 mkdir -p your-project/.opencode/skills
-cp -r .opencode/skills/repo2skill your-project/.opencode/skills/
+cp -r repo2skill your-project/.opencode/skills/
 ```
 
 That's it! No npm install, no API keys needed. 🎉
@@ -248,16 +248,15 @@ Bilingual skill preserving Chinese documentation with English translations.
 
 ```
 repo2skill/
-├── .opencode/
-│   └── skills/
-│       └── repo2skill/              # 🎯 Main Skill Directory
-│           ├── SKILL.md              # Core system instructions (350 lines)
-│           ├── references/           # API reference documentation
-│           │   ├── github-api.md     # GitHub API quick reference
-│           │   ├── gitlab-api.md     # GitLab API quick reference
-│           │   └── gitee-api.md      # Gitee API quick reference
-│           └── scripts/              # Utility scripts
-│               └── utils.sh          # Bash helper functions
+├── repo2skill/                       # 🎯 Main Skill Directory (copy this to use)
+│   ├── SKILL.md                      # Core system instructions (397 lines)
+│   ├── IMPLEMENTATION.md             # Technical documentation (165 lines)
+│   ├── references/                   # API reference documentation
+│   │   ├── github-api.md             # GitHub API quick reference (123 lines)
+│   │   ├── gitlab-api.md             # GitLab API quick reference (114 lines)
+│   │   └── gitee-api.md              # Gitee API quick reference (31 lines)
+│   └── scripts/                      # Utility scripts
+│       └── utils.sh                  # Bash helper functions (95 lines)
 ├── README.md                         # This file
 ├── README_EN.md                      # English version
 ├── README_ZH.md                      # Chinese version
