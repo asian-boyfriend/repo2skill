@@ -70,7 +70,7 @@ repo2skill/                          # 项目根目录
 ### 1. GitHub 仓库转换
 
 ```bash
-用户: 帮我把这个仓库转成技能：https://github.com/vercel/next.js
+User: Convert this repository into a skill: https://github.com/vercel/next.js
 
 我会:
 1. ✅ 解析为 GitHub 平台, owner=vercel, repo=next.js
@@ -83,7 +83,7 @@ repo2skill/                          # 项目根目录
 ### 2. GitLab 仓库转换
 
 ```bash
-用户: 帮我把这个 GitLab 仓库转成技能：https://gitlab.com/gitlab-org/gitlab
+User: Convert this GitLab repository into a skill: https://gitlab.com/gitlab-org/gitlab
 
 我会:
 - 使用 GitLab API (官方 + 代理)
@@ -94,7 +94,7 @@ repo2skill/                          # 项目根目录
 ### 3. Gitee 仓库转换
 
 ```bash
-用户: 帮我把这个 Gitee 仓库转成技能：https://gitee.com/mindspore/docs
+User: Convert this Gitee repository into a skill: https://gitee.com/mindspore/docs
 
 我会:
 - 使用 Gitee API v5
@@ -259,8 +259,8 @@ repo2skill/                          # 项目根目录
 ### 场景1: 学习新框架
 
 ```
-用户: 想学习 Next.js,帮我把官方仓库转成技能
-       : 帮我把这个仓库转成技能:https://github.com/vercel/next.js
+User: Want to learn Next.js, convert the official repository into a skill
+       : Convert this repository into a skill: https://github.com/vercel/next.js
 
 结果: 5 分钟后得到一个完整的 Next.js 技能,
        可以随时让 AI 帮忙解答 Next.js 相关问题
@@ -270,7 +270,7 @@ repo2skill/                          # 项目根目录
 
 ```
 用户: 团队要用多个开源项目,快速生成文档
-       : 帮我转换这几个仓库:
+       : Convert these repositories:
        : - https://github.com/vercel/next.js
        : - https://github.com/facebook/react
        : - https://github.com/facebook/react-native
@@ -282,8 +282,8 @@ repo2skill/                          # 项目根目录
 ### 场景3: 中文本地化
 
 ```
-用户: 国内的项目,转换成技能方便访问
-       : 帮我把这个仓库转成技能:https://gitee.com/mindspore/docs
+User: For domestic projects, convert to skill for easy access
+       : Convert this repository into a skill: https://gitee.com/mindspore/docs
 
 结果: 生成双语技能,保留中文文档,
        国内访问速度快
@@ -372,7 +372,7 @@ cp -r .opencode/skills/repo2skill ~/.claude/skills/
 在OpenCode或Claude Code中:
 
 ```
-帮我把这个仓库转成技能:https://github.com用户名/仓库名
+Convert this repository into a skill: https://github.com/username/repo
 ```
 
 就这么简单! 🎉

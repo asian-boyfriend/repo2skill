@@ -26,7 +26,7 @@ mkdir -p ~/.config/opencode/skills
 cp -r .opencode/skills/repo2skill ~/.config/opencode/skills/
 
 # Use (one command in OpenCode/Claude Code)
-帮我把这个仓库转成技能:https://github.com/vercel/next.js
+Convert this repository into a skill: https://github.com/vercel/next.js
 ```
 
 ## Documentation

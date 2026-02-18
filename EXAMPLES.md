@@ -6,7 +6,7 @@ This document shows real-world examples of using repo2skill.
 
 ### Input
 ```
-帮我把这个仓库转成技能：https://github.com/vercel/next.js
+Convert this repository into a skill: https://github.com/vercel/next.js
 ```
 
 ### Expected Behavior
@@ -44,7 +44,7 @@ A comprehensive Next.js documentation skill ready to use!
 
 ### Input
 ```
-帮我把这个库转成技能：https://github.com/user/my-utils
+Convert this library into a skill: https://github.com/user/my-utils
 ```
 
 ### Expected Behavior
@@ -66,7 +66,7 @@ A comprehensive Next.js documentation skill ready to use!
 
 ### Input
 ```
-帮我转换这几个仓库:
+Convert these repositories:
 - https://github.com/anthropics/anthropic-sdk-typescript
 - https://gitlab.com/gitlab-org/gitlab
 - https://gitee.com/mindspore/docs
@@ -94,7 +94,7 @@ A comprehensive Next.js documentation skill ready to use!
 
 ### Input
 ```
-帮我把 Gitee 的这个项目转成技能：
+Convert this Gitee project into a skill:
 https://gitee.com/mindspore/docs
 ```
 
@@ -120,7 +120,7 @@ https://gitee.com/mindspore/docs
 
 ### Input
 ```
-帮我把这个项目转成技能：https://github.com/user/code-only-repo
+Convert this project into a skill: https://github.com/user/code-only-repo
 ```
 
 ### Expected Behavior
@@ -142,7 +142,7 @@ https://gitee.com/mindspore/docs
 
 ### Input
 ```
-帮我把这个大项目转成技能：https://github.com/facebook/react
+Convert this large project into a skill: https://github.com/facebook/react
 ```
 
 ### Expected Behavior
@@ -163,7 +163,7 @@ https://gitee.com/mindspore/docs
 
 ### Input
 ```
-帮我把这个转成技能：https://not-a-real-site.com/user/repo
+Convert this into a skill: https://not-a-real-site.com/user/repo
 ```
 
 ### Expected Behavior
@@ -190,7 +190,7 @@ export GITHUB_TOKENS="ghp_xxx,ghp_yyy"
 
 ### Input
 ```
-帮我把这个私有仓库转成技能：https://github.com/user/private-repo
+Convert this private repository into a skill: https://github.com/user/private-repo
 ```
 
 ### Expected Behavior
@@ -211,7 +211,7 @@ export GITHUB_TOKENS="ghp_xxx,ghp_yyy"
 
 ### Input
 ```
-帮我把这个仓库转成技能：https://github.com/user/repo
+Convert this repository into a skill: https://github.com/user/repo
 ```
 
 ### Error Scenario

@@ -88,7 +88,7 @@ Only built-in OpenCode/Claude Code tools are used:
 ### What Happens When You Use It
 
 ```
-User: "帮我把这个仓库转成技能：https://github.com/user/repo"
+User: "Convert this repository into a skill: https://github.com/user/repo"
 ```
 
 **AI Process:**

@@ -318,7 +318,7 @@ The skill is now ready to use! 🎉
 If user provides multiple repositories:
 
 ```
-帮我转换这几个仓库:
+Convert these repositories:
 - https://github.com/vercel/next.js
 - https://github.com/facebook/react
 ```

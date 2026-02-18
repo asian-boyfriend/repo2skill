@@ -42,7 +42,7 @@ Start OpenCode or Claude Code and check that repo2skill appears in available ski
 Once installed, simply tell your AI assistant:
 
 ```
-帮我把这个仓库转成技能：https://github.com/user/repo
+Convert this repository into a skill: https://github.com/user/repo
 ```
 
 That's all you need to do!

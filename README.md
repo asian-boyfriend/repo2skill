@@ -57,7 +57,7 @@ That's it! No npm install, no API keys needed. 🎉
 Start OpenCode or Claude Code and say:
 
 ```
-帮我把这个仓库转成技能：https://github.com/vercel/next.js
+Convert this repository into a skill: https://github.com/vercel/next.js
 ```
 
 **The skill will automatically:**
@@ -86,7 +86,7 @@ Start OpenCode or Claude Code and say:
 
 **Example:**
 ```
-帮我把这个 GitHub 仓库转成技能：https://github.com/anthropics/anthropic-sdk-typescript
+Convert this GitHub repository into a skill: https://github.com/anthropics/anthropic-sdk-typescript
 ```
 
 ### GitLab ✅
@@ -104,7 +104,7 @@ Start OpenCode or Claude Code and say:
 
 **Example:**
 ```
-帮我把这个 GitLab 仓库转成技能：https://gitlab.com/gitlab-org/gitlab
+Convert this GitLab repository into a skill: https://gitlab.com/gitlab-org/gitlab
 ```
 
 ### Gitee ✅
@@ -122,7 +122,7 @@ Start OpenCode or Claude Code and say:
 
 **Example:**
 ```
-帮我把这个 Gitee 仓库转成技能：https://gitee.com/mindspore/docs
+Convert this Gitee repository into a skill: https://gitee.com/mindspore/docs
 ```
 
 ---
@@ -193,7 +193,7 @@ Repository URL
 
 **Input:**
 ```
-帮我把这个仓库转成技能：https://github.com/vercel/next.js
+Convert this repository into a skill: https://github.com/vercel/next.js
 ```
 
 **Output:**
@@ -210,7 +210,7 @@ A comprehensive Next.js skill (~400-600 lines) including:
 
 **Input:**
 ```
-帮我转换这几个仓库:
+Convert these repositories:
 - https://github.com/anthropics/anthropic-sdk-typescript
 - https://gitlab.com/gitlab-org/gitlab
 - https://gitee.com/mindspore/docs
@@ -223,7 +223,7 @@ Parallel processing generates 3 complete skills in ~2-4 minutes.
 
 **Input:**
 ```
-帮我把这个工具库转成技能：https://github.com/user/my-utils
+Convert this utility library into a skill: https://github.com/user/my-utils
 ```
 
 **Output:**
@@ -236,7 +236,7 @@ Focused documentation (~200-300 lines) with:
 
 **Input:**
 ```
-帮我把这个国内项目转成技能：https://gitee.com/mindspore/docs
+Convert this Chinese project into a skill: https://gitee.com/mindspore/docs
 ```
 
 **Output:**
